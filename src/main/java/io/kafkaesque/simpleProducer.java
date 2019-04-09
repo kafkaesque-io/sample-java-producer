@@ -5,7 +5,7 @@ import java.io.IOException;
 
 public class simpleProducer {
 
-    private static final String SERVICE_URL = "pulsar://ASIAEAST2.GCP.KAFKAESQUE.IO:6650";
+    private static final String SERVICE_URL = "pulsar+ssl://useast1.gcp.kafkaesque.io:6651";
 
     public static void main(String[] args) throws IOException
     {
@@ -13,11 +13,14 @@ public class simpleProducer {
         // Create client object
         PulsarClient client = PulsarClient.builder()
                 .serviceUrl(SERVICE_URL)
+                .authentication(
+                        AuthenticationFactory.token("<INSERT CLIENT TOKEN HERE>")
+                )
                 .build();
 
         // Create producer on a topic
         Producer<byte[]> producer = client.newProducer()
-                .topic("persistent://mytenant2/local-asiaeast2-gcp/tc2-messages")
+                .topic("persistent://chris-kafkaesque-io/local-useast1-gcp/tc1-messages")
                 .create();
 
         // Send a message to the topic
